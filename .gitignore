@@ -84,6 +84,30 @@ fastlane/screenshots/**/*.png
 fastlane/test_output
 fastlane/*.env
 
+# macOS
+.DS_Store
+
+# Secrets
+*.env
+*.key
+*.p12
+*.mobileprovision
+Secrets.plist
+GoogleService-Info.plist
+
+# SwiftPM
+Packages/
+
+# Test
+*.xcresult
+
+# Logs
+*.log
+*.tmp
+         
+# Xcode user state
+*.xcuserstate
+         
 # Code Injection
 #
 # After new code Injection tools there's a generated folder /iOSInjectionProject
