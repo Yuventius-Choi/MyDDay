@@ -7,8 +7,9 @@
 
 import SwiftUI
 
-struct HomeScreen: View {
+struct HomeView: View {
     @StateObject private var vm: HomeVM
+    @EnvironmentObject private var appRouter: AppRouter
     
     init(with diContainer: DIContainer) {
         self._vm = StateObject(wrappedValue: diContainer.makeHomeVM())
@@ -23,11 +24,18 @@ struct HomeScreen: View {
                     }
                 }
         } else {
-            Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+            VStack {
+                Text("HomeView")
+                Button(action: {
+                    appRouter.push(to: .Home(route: .Detail(id: UUID.init())))
+                }, label: {
+                    Text("To Detail")
+                })
+            }
         }
     }
 }
 
 #Preview {
-    HomeScreen(with: .preview)
+    HomeView(with: .preview)
 }

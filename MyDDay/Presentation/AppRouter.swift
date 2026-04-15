@@ -28,6 +28,10 @@ final class AppRouter: ObservableObject {
         self.root = root
         self.path = NavigationPath()
         
+        push(to: root)
+    }
+    
+    func push(to root: AppRoot) {
         switch root {
         case .Splash:
             return
@@ -35,7 +39,7 @@ final class AppRouter: ObservableObject {
             switch route {
             case .Home:
                 return
-            case .Detail(let id):
+            case .Detail:
                 self.path.append(route)
             }
         }

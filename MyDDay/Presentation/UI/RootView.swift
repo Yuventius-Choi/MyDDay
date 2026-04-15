@@ -23,19 +23,6 @@ struct RootView: View {
     var body: some View {
         NavigationStack(path: $appRouter.path) {
             rootView()
-                .navigationDestination(for: AppRoot.self) { route in
-                    switch route {
-                    case .Splash:
-                        Text("SPLASH")
-                            .onAppear {
-                                DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-                                    appRouter.toRoot(to: .Home(route: .Home))
-                                }
-                            }
-                    case .Home:
-                        HomeScreen(with: diContainer)
-                    }
-                }
         }
         .environmentObject(appRouter)
     }
@@ -51,7 +38,10 @@ struct RootView: View {
                     }
                 }
         case .Home(let route):
-            HomeScreen(with: diContainer)
+            HomeCoordinator(route: route, di: diContainer)
+                .navigationDestination(for: HomeRoute.self) { route in
+                    HomeCoordinator(route: route, di: diContainer)
+                }
         }
     }
 }
