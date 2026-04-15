@@ -21,7 +21,9 @@ final class HomeVM: ObservableObject {
     func send(_ action: Action) {
         switch action {
         case .onAppear:
+            print("onAppear")
         case .refresh:
+            print("onRefresh")
         case .loaded(let items):
             state.isLoading = false
             state.dDays = items
