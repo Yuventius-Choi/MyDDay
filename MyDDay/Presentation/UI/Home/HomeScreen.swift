@@ -17,6 +17,11 @@ struct HomeScreen: View {
     var body: some View {
         if vm.state.isLoading {
             ProgressView()
+                .onAppear {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                        vm.send(.loaded([]))
+                    }
+                }
         } else {
             Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
         }

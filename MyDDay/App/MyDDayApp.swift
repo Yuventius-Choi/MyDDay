@@ -14,7 +14,7 @@ struct MyDDayApp: App {
 
     var body: some Scene {
         WindowGroup {
-            HomeScreen(with: diContainer)
+            RootView(with: diContainer)
         }
     }
 }
