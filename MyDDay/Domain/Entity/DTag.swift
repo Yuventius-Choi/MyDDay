@@ -12,3 +12,13 @@ struct DTag: Sendable {
     let name: String
     let colorHex: String
 }
+
+extension DTag {
+    static func makeDummy() -> DTag {
+        return DTag(
+            id: UUID.init(),
+            name: "Test Name",
+            colorHex: "FF000000"
+        )
+    }
+}

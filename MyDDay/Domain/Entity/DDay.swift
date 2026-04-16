@@ -13,3 +13,14 @@ struct DDay: Sendable {
     let date: Date
     let tag: DTag?
 }
+
+extension DDay {
+    static func makeDummy() -> DDay {
+        return DDay(
+            id: UUID.init(),
+            title: "Test Title",
+            date: Date(),
+            tag: DTag.makeDummy()
+        )
+    }
+}
