@@ -18,10 +18,11 @@ final class HomeVM: ObservableObject {
     }
     
     
-    func send(_ action: Action) {
+    func send(_ action: Action) async {
         switch action {
         case .onAppear:
             print("onAppear")
+            await fetch()
         case .refresh:
             print("onRefresh")
         case .loaded(let items):

@@ -22,4 +22,10 @@ extension Date {
             return "D-\(remainDay)"
         }
     }
+    
+    func toyyMMdd() -> String {
+        let df = DateFormatter()
+        df.dateFormat = "yy / MM / dd"
+        return df.string(from: self)
+    }
 }
