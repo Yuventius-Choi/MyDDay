@@ -8,13 +8,21 @@
 import Combine
 
 final class HomeVM: ObservableObject {
-    private let useCase: FetchDDaysUseCase
+    private let fetchUseCase: FetchDDaysUseCase
+    private let addUseCase: AddDDayUseCase
+    private let deleteUseCase: DeleteDDayUseCase
     
     @Published
     private(set) var state = State()
     
-    init(useCase: FetchDDaysUseCase) {
-        self.useCase = useCase
+    init(
+        fetchUseCase: FetchDDaysUseCase,
+        addUseCase: AddDDayUseCase,
+        deleteUseCase: DeleteDDayUseCase
+    ) {
+        self.fetchUseCase = fetchUseCase
+        self.addUseCase = addUseCase
+        self.deleteUseCase = deleteUseCase
     }
     
     
@@ -28,12 +36,34 @@ final class HomeVM: ObservableObject {
         case .loaded(let items):
             state.isLoading = false
             state.dDays = items
+        case .append(let item):
+            await add(dDay: item)
+        case .delete(let item):
+            await delete(dDay: item)
+            
         }
     }
     
-    func fetch() async {
+    private func fetch() async {
         do {
-            try await send(.loaded(useCase.execute()))
+            try await send(.loaded(fetchUseCase.execute()))
+        } catch {
+            print(error)
+        }
+    }
+    
+    private func add(dDay: DDay) async {
+        do {
+            try await send(.loaded(addUseCase.execute(dDay: dDay)))
+        } catch {
+            print(error)
+        }
+    }
+    
+    
+    private func delete(dDay: DDay) async {
+        do {
+            try await send(.loaded(deleteUseCase.execute(dDay: dDay)))
         } catch {
             print(error)
         }
@@ -48,5 +78,7 @@ final class HomeVM: ObservableObject {
         case onAppear
         case refresh
         case loaded([DDay])
+        case append(DDay)
+        case delete(DDay)
     }
 }

@@ -19,7 +19,7 @@ extension Date {
         } else if (remainDay > 0) {
             return "D+\(remainDay)"
         } else {
-            return "D-\(remainDay)"
+            return "D-\(-remainDay)"
         }
     }
     

@@ -33,7 +33,7 @@ struct HomeView: View {
                     .onAppear {
                         DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
                             Task {
-                                await vm.send(.loaded([]))
+                                await vm.send(.onAppear)
                             }
                         }
                     }
@@ -118,13 +118,25 @@ struct HomeView: View {
                         
                         Spacer(minLength: 0)
                         Button(action: {
-                            // TODO
-                            // add data
-                            
-                            title = ""
-                            date = Date()
-                            tagName = "기본"
-                            tagColor = .red
+                            Task {
+                                await self.vm.send(.append(DDay(
+                                    id: UUID.init(),
+                                    title: title,
+                                    date: date,
+                                    tag: DTag(
+                                        id: UUID.init(),
+                                        name: tagName,
+                                        colorHex: tagColor.toHex()
+                                    )
+                                )))
+                                
+                                title = ""
+                                date = Date()
+                                tagName = "기본"
+                                tagColor = .red
+                                
+                            }
+                            showBottomSheet.toggle()
                         }) {
                             Text("SAVE")
                                 .fontWeight(.black)

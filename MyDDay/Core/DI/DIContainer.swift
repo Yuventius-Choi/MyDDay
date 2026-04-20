@@ -16,11 +16,27 @@ final class DIContainer {
     }
     
     func makeHomeVM() -> HomeVM {
-        return HomeVM(useCase: makeFetchDDaysUseCase())
+        return HomeVM(
+            fetchUseCase: makeFetchDDaysUseCase(),
+            addUseCase: makeAddDDaysUseCase(),
+            deleteUseCase: makeDeleteDDaysUseCase()
+        )
     }
     
     private func makeFetchDDaysUseCase() -> FetchDDaysUseCase {
         return FetchDDaysUseCase(repository: makeDDayRepository())
+    }
+    
+    private func makeAddDDaysUseCase() -> AddDDayUseCase {
+        return AddDDayUseCase(repository: makeDDayRepository())
+    }
+    
+    private func makeUpdateDDaysUseCase() -> UpdateDDayUseCase {
+        return UpdateDDayUseCase(repository: makeDDayRepository())
+    }
+    
+    private func makeDeleteDDaysUseCase() -> DeleteDDayUseCase {
+        return DeleteDDayUseCase(repository: makeDDayRepository())
     }
     
     private func makeDDayRepository() -> DDayRepository {

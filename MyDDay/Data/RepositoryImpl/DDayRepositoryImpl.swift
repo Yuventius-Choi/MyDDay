@@ -20,4 +20,26 @@ final class DDayRepositoryImpl: DDayRepository {
             DDayMapper.toDomain($0)
         }
     }
+    
+    func addDDay(dDay: DDay) async throws -> [DDay] {
+        let result: [DDayEntity] = try dataSource.add(entity: DDayMapper.toData(dDay))
+        return result.map {
+            DDayMapper.toDomain($0)
+        }
+    }
+    
+    func deleteDDay(dDay: DDay) async throws -> [DDay] {
+        let result: [DDayEntity] = try dataSource.delete(entity: DDayMapper.toData(dDay))
+        return result.map {
+            DDayMapper.toDomain($0)
+        }
+    }
+    
+    func updateDDay(dDay: DDay) async throws -> [DDay] {
+        let result: [DDayEntity] = try dataSource.update(entity: DDayMapper.toData(dDay))
+        return result.map {
+            DDayMapper.toDomain($0)
+        }
+    }
+    
 }
